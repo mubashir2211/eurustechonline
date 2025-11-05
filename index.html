@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eurus Technologies | Custom Software &amp; Cloud Development</title>
+    <style>
+        :root {
+            --color-cream-50: rgba(252, 252, 249, 1);
+            --color-cream-100: rgba(255, 255, 253, 1);
+            --color-gray-200: rgba(245, 245, 245, 1);
+            --color-gray-300: rgba(167, 169, 169, 1);
+            --color-slate-500: rgba(98, 108, 113, 1);
+            --color-brown-600: rgba(94, 82, 64, 1);
+            --color-charcoal-700: rgba(31, 33, 33, 1);
+            --color-charcoal-800: rgba(38, 40, 40, 1);
+            --color-slate-900: rgba(19, 52, 59, 1);
+            --color-teal-300: rgba(50, 184, 198, 1);
+            --color-teal-500: rgba(33, 128, 141, 1);
+            --color-teal-600: rgba(29, 116, 128, 1);
+            --color-teal-700: rgba(26, 104, 115, 1);
+            --color-brown-600-rgb: 94, 82, 64;
+            --color-teal-500-rgb: 33, 128, 141;
+            --color-slate-900-rgb: 19, 52, 59;
+            --color-background: var(--color-cream-50);
+            --color-surface: var(--color-cream-100);
+            --color-text: var(--color-slate-900);
+            --color-text-secondary: var(--color-slate-500);
+            --color-primary: var(--color-teal-500);
+            --color-primary-hover: var(--color-teal-600);
+            --color-primary-active: var(--color-teal-700);
+            --color-secondary: rgba(var(--color-brown-600-rgb), 0.12);
+            --color-border: rgba(var(--color-brown-600-rgb), 0.2);
+            --color-btn-primary-text: var(--color-cream-50);
+            --font-family-base: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            --space-8: 8px;
+            --space-12: 12px;
+            --space-16: 16px;
+            --space-20: 20px;
+            --space-24: 24px;
+            --space-32: 32px;
+            --space-48: 48px;
+            --space-64: 64px;
+            --radius-base: 8px;
+            --radius-lg: 12px;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --color-gray-400-rgb: 119, 124, 124;
+                --color-teal-300-rgb: 50, 184, 198;
+                --color-gray-300-rgb: 167, 169, 169;
+                --color-gray-200-rgb: 245, 245, 245;
+                --color-background: var(--color-charcoal-700);
+                --color-surface: var(--color-charcoal-800);
+                --color-text: var(--color-gray-200);
+                --color-text-secondary: rgba(var(--color-gray-300-rgb), 0.7);
+                --color-primary: var(--color-teal-300);
+                --color-secondary: rgba(var(--color-gray-400-rgb), 0.15);
+                --color-border: rgba(var(--color-gray-400-rgb), 0.3);
+            }
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-family-base);
+            background-color: var(--color-background);
+            color: var(--color-text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-teal-700) 100%);
+            color: white;
+            padding: var(--space-64) var(--space-24);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 500px;
+            height: 500px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -30%;
+            left: -5%;
+            width: 400px;
+            height: 400px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 50%;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .hero-logo {
+            max-width: 200px;
+            height: auto;
+            margin-bottom: var(--space-24);
+        }
+
+        .hero h1 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 700;
+            margin-bottom: var(--space-20);
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: clamp(1rem, 2vw, 1.25rem);
+            margin-bottom: var(--space-32);
+            opacity: 0.95;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: white;
+            color: var(--color-primary);
+            padding: var(--space-16) var(--space-48);
+            border-radius: var(--radius-base);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--space-24);
+        }
+
+        .section {
+            padding: var(--space-64) 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: clamp(1.75rem, 4vw, 2.5rem);
+            font-weight: 700;
+            margin-bottom: var(--space-16);
+            color: var(--color-text);
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.1rem;
+            color: var(--color-text-secondary);
+            margin-bottom: var(--space-48);
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: var(--space-32);
+            margin-bottom: var(--space-48);
+        }
+
+        .service-card {
+            background: var(--color-surface);
+            padding: var(--space-32);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--color-border);
+            transition: all 0.3s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .service-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--color-secondary);
+            border-radius: var(--radius-base);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: var(--space-20);
+            font-size: 2rem;
+        }
+
+        .service-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: var(--space-12);
+            color: var(--color-text);
+        }
+
+        .service-card p {
+            color: var(--color-text-secondary);
+            margin-bottom: var(--space-16);
+        }
+
+        .service-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .service-list li {
+            padding: var(--space-8) 0;
+            color: var(--color-text-secondary);
+            position: relative;
+            padding-left: var(--space-24);
+        }
+
+        .service-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--color-primary);
+            font-weight: bold;
+        }
+
+        .stats-section {
+            background: var(--color-surface);
+            padding: var(--space-64) 0;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: var(--space-32);
+            text-align: center;
+        }
+
+        .stat-item {
+            padding: var(--space-24);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--color-primary);
+            display: block;
+            margin-bottom: var(--space-8);
+        }
+
+        .stat-label {
+            color: var(--color-text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .why-us-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--space-24);
+        }
+
+        .why-us-item {
+            padding: var(--space-24);
+            background: var(--color-surface);
+            border-radius: var(--radius-base);
+            border: 1px solid var(--color-border);
+        }
+
+        .why-us-item h3 {
+            color: var(--color-primary);
+            margin-bottom: var(--space-12);
+            font-size: 1.2rem;
+        }
+
+        .why-us-item p {
+            color: var(--color-text-secondary);
+        }
+
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--space-16);
+            justify-content: center;
+        }
+
+        .tech-badge {
+            background: var(--color-secondary);
+            padding: var(--space-12) var(--space-24);
+            border-radius: var(--radius-base);
+            font-weight: 500;
+            color: var(--color-text);
+        }
+
+        .client-logos {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--space-24);
+            justify-content: center;
+            margin-bottom: var(--space-48);
+        }
+
+        .client-logo-item {
+            background: var(--color-surface);
+            padding: var(--space-20) var(--space-32);
+            border-radius: var(--radius-base);
+            border: 1px solid var(--color-border);
+            font-weight: 500;
+            color: var(--color-text);
+        }
+
+        .testimonials-section {
+            background: var(--color-surface);
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--space-32);
+        }
+
+        .testimonial-card {
+            background: var(--color-background);
+            padding: var(--space-32);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--color-border);
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-16);
+        }
+
+        .testimonial-rating {
+            color: var(--color-primary);
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .testimonial-text {
+            color: var(--color-text);
+            font-size: 1rem;
+            line-height: 1.7;
+            font-style: italic;
+            flex-grow: 1;
+        }
+
+        .testimonial-author {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-4);
+        }
+
+        .testimonial-author strong {
+            color: var(--color-text);
+            font-size: 1rem;
+        }
+
+        .testimonial-author span {
+            color: var(--color-text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .testimonial-project {
+            color: var(--color-text-secondary);
+            font-size: 0.85rem;
+            padding-top: var(--space-12);
+            border-top: 1px solid var(--color-border);
+        }
+
+        .industries-section {
+            background: var(--color-background);
+        }
+
+        .industries-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--space-20);
+        }
+
+        .industry-item {
+            padding: var(--space-20);
+            text-align: center;
+            border-radius: var(--radius-base);
+            background: var(--color-background);
+            border: 1px solid var(--color-border);
+        }
+
+        .industry-item h4 {
+            color: var(--color-text);
+            margin-bottom: var(--space-8);
+        }
+
+        .industry-item p {
+            color: var(--color-text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .cta-section {
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-teal-700) 100%);
+            color: white;
+            padding: var(--space-64) var(--space-24);
+            text-align: center;
+        }
+
+        .cta-section h2 {
+            font-size: clamp(1.75rem, 4vw, 2.5rem);
+            margin-bottom: var(--space-20);
+        }
+
+        .cta-section p {
+            font-size: 1.1rem;
+            margin-bottom: var(--space-32);
+            opacity: 0.95;
+        }
+
+        .contact-button {
+            display: inline-block;
+            background: white;
+            color: var(--color-primary);
+            padding: var(--space-16) var(--space-48);
+            border-radius: var(--radius-base);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+
+        .contact-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        footer {
+            background: var(--color-surface);
+            padding: var(--space-32) 0;
+            text-align: center;
+            border-top: 1px solid var(--color-border);
+        }
+
+        footer p {
+            color: var(--color-text-secondary);
+        }
+
+        footer a {
+            color: var(--color-primary);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                padding: var(--space-48) var(--space-24);
+            }
+
+            .section {
+                padding: var(--space-48) 0;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-logo {
+                max-width: 150px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="hero">
+        <div class="hero-content">
+            <img src="Eurus-Logo-white.jpg" alt="Eurus Technologies" class="hero-logo">
+            <h1>Transform Your Business with Custom Software &amp; Cloud Solutions</h1>
+            <p>We build scalable, secure, and high-performance applications tailored to your unique business needs. From cloud-native development to enterprise system modernization—we deliver excellence.</p>
+            <a href="#contact" class="cta-button">Let's Build Together</a>
+        </div>
+    </header>
+
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Our Core Services</h2>
+            <p class="section-subtitle">Comprehensive software and cloud solutions designed to accelerate your digital transformation</p>
+            
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">💻</div>
+                    <h3>Custom Software Development</h3>
+                    <p>Tailored software solutions built for your specific business requirements using modern technologies and Agile methodologies.</p>
+                    <ul class="service-list">
+                        <li>Full-stack web applications</li>
+                        <li>Mobile app development (iOS & Android)</li>
+                        <li>Enterprise system integration</li>
+                        <li>API development & microservices</li>
+                        <li>Legacy system modernization</li>
+                    </ul>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">☁️</div>
+                    <h3>Cloud Development & Migration</h3>
+                    <p>Cloud-native applications and seamless migration strategies that maximize scalability, performance, and cost-efficiency.</p>
+                    <ul class="service-list">
+                        <li>Cloud strategy & consulting</li>
+                        <li>AWS, Azure & Google Cloud</li>
+                        <li>Cloud migration & optimization</li>
+                        <li>Serverless architecture</li>
+                        <li>Hybrid & multi-cloud solutions</li>
+                    </ul>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">⚙️</div>
+                    <h3>DevOps & Infrastructure</h3>
+                    <p>Automated CI/CD pipelines, infrastructure as code, and containerization for faster, more reliable deployments.</p>
+                    <ul class="service-list">
+                        <li>CI/CD pipeline automation</li>
+                        <li>Kubernetes & Docker orchestration</li>
+                        <li>Infrastructure as Code (Terraform)</li>
+                        <li>Monitoring & 24/7 support</li>
+                        <li>Performance optimization</li>
+                    </ul>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">🔒</div>
+                    <h3>Security & Compliance</h3>
+                    <p>Comprehensive security measures and compliance solutions to protect your data and meet regulatory standards.</p>
+                    <ul class="service-list">
+                        <li>Cloud security architecture</li>
+                        <li>Identity & access management</li>
+                        <li>Compliance audits & solutions</li>
+                        <li>Data encryption & protection</li>
+                        <li>Threat detection & response</li>
+                    </ul>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">🚀</div>
+                    <h3>Site Reliability Engineering</h3>
+                    <p>Maximize system availability, performance, and reliability with our expert SRE services and incident management.</p>
+                    <ul class="service-list">
+                        <li>High availability & uptime</li>
+                        <li>Performance monitoring</li>
+                        <li>Incident response & resolution</li>
+                        <li>Capacity planning & scaling</li>
+                        <li>Root cause analysis</li>
+                    </ul>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">👥</div>
+                    <h3>Staff Augmentation</h3>
+                    <p>Access certified cloud architects, DevOps engineers, and software developers to seamlessly scale your team.</p>
+                    <ul class="service-list">
+                        <li>Vetted, certified professionals</li>
+                        <li>Flexible team scaling</li>
+                        <li>Cultural alignment</li>
+                        <li>End-to-end management</li>
+                        <li>Domain-specific expertise</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="stats-section">
+        <div class="container">
+            <h2 class="section-title">Delivering Results Since 2018</h2>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <span class="stat-number">55+</span>
+                    <span class="stat-label">Clients Served</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">220+</span>
+                    <span class="stat-label">Projects Completed</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">80+</span>
+                    <span class="stat-label">Skilled Engineers</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">150+</span>
+                    <span class="stat-label">Certifications</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">70+</span>
+                    <span class="stat-label">CI/CD Pipelines</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">300+</span>
+                    <span class="stat-label">Cloud Applications</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Why Choose Eurus Technologies?</h2>
+            <p class="section-subtitle">We combine technical excellence with a client-first approach to deliver transformative solutions</p>
+            
+            <div class="why-us-grid">
+                <div class="why-us-item">
+                    <h3>🎯 Tailored Solutions</h3>
+                    <p>Every solution is custom-built to align with your specific business objectives and technical requirements.</p>
+                </div>
+                <div class="why-us-item">
+                    <h3>🏆 Proven Expertise</h3>
+                    <p>150+ technical certifications across AWS, Azure, Google Cloud, Kubernetes, and Terraform with real-world experience.</p>
+                </div>
+                <div class="why-us-item">
+                    <h3>🔐 Security First</h3>
+                    <p>Advanced security measures and compliance expertise ensure your data is protected at every level.</p>
+                </div>
+                <div class="why-us-item">
+                    <h3>⚡ Agile Delivery</h3>
+                    <p>Agile methodologies enable flexible, transparent project management with rapid iteration and deployment.</p>
+                </div>
+                <div class="why-us-item">
+                    <h3>💰 Cost Optimization</h3>
+                    <p>Cloud-native architectures and efficient resource management reduce operational costs significantly.</p>
+                </div>
+                <div class="why-us-item">
+                    <h3>🌐 Global Experience</h3>
+                    <p>Successfully serving clients across the US, UK, and beyond with seamless communication and cultural alignment.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" style="background: var(--color-surface);">
+        <div class="container">
+            <h2 class="section-title">Our Technology Stack</h2>
+            <p class="section-subtitle">We leverage cutting-edge technologies to build modern, scalable solutions</p>
+            
+            <div class="tech-stack">
+                <span class="tech-badge">AWS</span>
+                <span class="tech-badge">Azure</span>
+                <span class="tech-badge">Google Cloud</span>
+                <span class="tech-badge">Kubernetes</span>
+                <span class="tech-badge">Docker</span>
+                <span class="tech-badge">Terraform</span>
+                <span class="tech-badge">React</span>
+                <span class="tech-badge">Node.js</span>
+                <span class="tech-badge">Python</span>
+                <span class="tech-badge">.NET</span>
+                <span class="tech-badge">PostgreSQL</span>
+                <span class="tech-badge">MongoDB</span>
+                <span class="tech-badge">Jenkins</span>
+                <span class="tech-badge">GitLab CI/CD</span>
+                <span class="tech-badge">Lambda</span>
+                <span class="tech-badge">CloudFormation</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Trusted by Leading Organizations</h2>
+            <p class="section-subtitle">We've partnered with innovative companies across the globe</p>
+            
+            <div class="client-logos">
+                <div class="client-logo-item">Data Orchestration Platform</div>
+                <div class="client-logo-item">Financial Services</div>
+                <div class="client-logo-item">E-commerce</div>
+                <div class="client-logo-item">Healthcare Tech</div>
+                <div class="client-logo-item">Manufacturing</div>
+                <div class="client-logo-item">SaaS Companies</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section testimonials-section">
+        <div class="container">
+            <h2 class="section-title">What Our Clients Say</h2>
+            <p class="section-subtitle">Real feedback from companies we've helped transform</p>
+            
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-rating">⭐⭐⭐⭐⭐ 5.0</div>
+                    <p class="testimonial-text">"What impressed us most was their responsiveness to our needs. The team has shown a strong grasp of modern software development practices. They have been organized, transparent, and proactive."</p>
+                    <div class="testimonial-author">
+                        <strong>Data Orchestration Platform</strong>
+                        <span>Toronto, Ontario • Software Industry</span>
+                    </div>
+                    <div class="testimonial-project">API Development, Custom Software Development, Integration Work</div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="testimonial-rating">⭐⭐⭐⭐⭐ 5.0</div>
+                    <p class="testimonial-text">"Eurus Technologies has communicated regularly and delivered milestones on time with high-quality standards. Their team demonstrated exceptional technical knowledge and seamless integration."</p>
+                    <div class="testimonial-author">
+                        <strong>Software Development Company</strong>
+                        <span>United States • Technology</span>
+                    </div>
+                    <div class="testimonial-project">Full-Stack Development, Cloud Infrastructure</div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="testimonial-rating">⭐⭐⭐⭐⭐ 5.0</div>
+                    <p class="testimonial-text">"Their pricing fit our budget while delivering high-quality results. Good value for cost. The team's effective cost optimization and innovation led to significant operational expense reductions."</p>
+                    <div class="testimonial-author">
+                        <strong>Financial Services</strong>
+                        <span>United Kingdom • Finance</span>
+                    </div>
+                    <div class="testimonial-project">Cloud Infrastructure Automation, DevOps</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section industries-section">
+        <div class="container">
+            <h2 class="section-title">Industries We Serve</h2>
+            <p class="section-subtitle">Delivering specialized solutions across diverse sectors</p>
+            
+            <div class="industries-grid">
+                <div class="industry-item">
+                    <h4>💼 IT & Startups</h4>
+                    <p>Scalability & agility for tech companies</p>
+                </div>
+                <div class="industry-item">
+                    <h4>🛒 E-commerce</h4>
+                    <p>Seamless online retail platforms</p>
+                </div>
+                <div class="industry-item">
+                    <h4>🏦 Finance & Banking</h4>
+                    <p>Secure, compliant operations</p>
+                </div>
+                <div class="industry-item">
+                    <h4>🏥 Healthcare</h4>
+                    <p>HIPAA-compliant solutions</p>
+                </div>
+                <div class="industry-item">
+                    <h4>🏭 Manufacturing</h4>
+                    <p>Process optimization</p>
+                </div>
+                <div class="industry-item">
+                    <h4>📱 Telecommunications</h4>
+                    <p>Enhanced connectivity</p>
+                </div>
+                <div class="industry-item">
+                    <h4>🚚 Logistics</h4>
+                    <p>Supply chain visibility</p>
+                </div>
+                <div class="industry-item">
+                    <h4>🎓 Education</h4>
+                    <p>EdTech innovation</p>
+                </div>
+                <div class="industry-item">
+                    <h4>⚡ Energy & Utilities</h4>
+                    <p>Infrastructure modernization</p>
+                </div>
+                <div class="industry-item">
+                    <h4>🏨 Hospitality</h4>
+                    <p>Guest experience enhancement</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section" id="contact">
+        <div class="container">
+            <h2>Ready to Transform Your Business?</h2>
+            <p>Let's discuss how we can help you build scalable, secure, and high-performance solutions tailored to your needs.</p>
+            <a href="mailto:info@eurustechnologies.com" class="contact-button">Get In Touch</a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Eurus Technologies. Empowering Growth with Digital Excellence.</p>
+            <p>
+                <a href="mailto:info@eurustechnologies.com">info@eurustechnologies.com</a> | 
+                <a href="https://linkedin.com/company/eurus-technologies/" target="_blank" rel="noopener noreferrer">LinkedIn</a> | 
+                <a href="https://eurustechnologies.com" target="_blank" rel="noopener noreferrer">eurustechnologies.com</a>
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add fade-in animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.service-card, .stat-item, .why-us-item, .industry-item, .testimonial-card, .client-logo-item').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
